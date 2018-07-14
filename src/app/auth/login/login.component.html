@@ -1,1 +1,42 @@
-<h3>Login component</h3>
+<div class="container centerXY">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <mat-card>
+        <div class="row">
+          <div class="col-12">
+            <mat-card-title>
+              <h5 class="text-center">Sign in</h5>
+            </mat-card-title>
+            <form class="form" [formGroup]="formGroup" (ngSubmit)="login()">
+              <mat-form-field class="full-width" appearance="standard">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Email">
+                <mat-error *ngIf="formGroup.get('email').invalid && formGroup.get('email').touched">Field is required</mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="full-width" appearance="standard">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" placeholder="Password" #password [type]="hidePassword ? 'password' : 'text'" maxlength="16">
+                <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                <mat-hint align="end">{{password.value?.length || 0}}/16</mat-hint>
+                <mat-error *ngIf="formGroup.get('password').invalid && formGroup.get('password').touched" style="display: block;">
+                  <p *ngIf="formGroup.get('password').errors['errorLength'] && !formGroup.get('password').errors['required']">Password have to more 4 symbols</p>
+                  <p *ngIf="formGroup.get('password').errors['required']">Field is required</p>
+                </mat-error>
+              </mat-form-field>
+
+              <div class="row">
+                <div class="col">
+                  <a [routerLink]="['/registration']">No account? Sign up!</a>
+                </div>
+                <div class="col-auto">
+                  <button [disabled]="formGroup.invalid" mat-raised-button color="primary">Sign In</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

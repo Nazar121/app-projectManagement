@@ -1,1 +1,65 @@
-<h3>Registration component</h3>
+<div class="container centerXY">
+    <div class="row justify-content-center">
+        <div class="col col-md-8">
+            <mat-card>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-card-title>
+                            <h5 class="text-center">Create an account</h5>
+                        </mat-card-title>
+                        <mat-card-content>
+                            <form class="form" [formGroup]="formGroup" (ngSubmit)="registration()">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="full-width" appearance="standard">
+                                            <mat-label>Name</mat-label>
+                                            <input matInput formControlName="name" placeholder="Name" required>
+                                            <mat-error *ngIf="formGroup.get('name').invalid && formGroup.get('name').touched">Field is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <mat-form-field class="full-width" color="primary" appearance="standard">
+                                            <mat-label>Surname</mat-label>
+                                            <input matInput formControlName="surname" placeholder="Surname" required>
+                                            <mat-error *ngIf="formGroup.get('surname').invalid && formGroup.get('surname').touched">Field is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <mat-form-field class="full-width" appearance="standard">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput formControlName="email" placeholder="Email" required>
+                                    <mat-error *ngIf="formGroup.get('email').invalid && formGroup.get('email').touched">Field is required</mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field class="full-width" appearance="standard">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput formControlName="password" placeholder="Password" #password [type]="hidePassword ? 'password' : 'text'" maxlength="16"
+                                        required>
+                                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                    <mat-hint align="end">{{password.value?.length || 0}}/16</mat-hint>
+                                    <mat-error *ngIf="formGroup.get('password').invalid && formGroup.get('password').touched" style="display: block;">
+                                        <p *ngIf="formGroup.get('password').errors['errorLength'] && !formGroup.get('password').errors['required']">Password have to more 4 symbols</p>
+                                        <p *ngIf="formGroup.get('password').errors['required']">Field is required</p>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <a [routerLink]="['/login']">Already have an account? Sign in!</a>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button [disabled]="formGroup.invalid" mat-raised-button color="primary">Sign Up</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-card-content>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="./assets/images/auth/account.svg" alt="account" class="img">
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
