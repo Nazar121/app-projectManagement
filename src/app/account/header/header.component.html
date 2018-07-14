@@ -1,0 +1,31 @@
+<!-- ICONS -->
+<!-- https://google.github.io/material-design-icons/ -->
+<!-- https://material.io/tools/icons/?icon=cancel&style=baseline -->
+
+<mat-toolbar color="primary">
+    <mat-toolbar-row class="toolbar-row">
+        
+        <nav class="menu">
+            <i class="material-icons md-36" (click)="toggleSidenav.emit('toggle menu')">menu</i>
+            <span>PM</span>
+        </nav>
+
+        <nav class="user">
+            <div class="name">Name</div>
+            <img src="" alt="" class="img">
+            <i class="material-icons md-36" mat-button [matMenuTriggerFor]="menu">apps</i>
+            <mat-menu #menu="matMenu">
+                <div mat-menu-item class="matItem">
+                    <i class="material-icons md-22">settings</i>
+                    <div>Settings</div>
+                </div>
+                <div mat-menu-item class="matItem">
+                    <i class="material-icons md-22">exit_to_app</i>
+                    <div>Logout</div>
+                </div>
+            </mat-menu>
+        </nav>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+  

@@ -1,0 +1,46 @@
+.sidenav {
+    min-width: 200px;
+    max-width: 250px;
+    width: auto;
+    padding: 5px 15px;
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 54px;
+        color: white;
+        font-weight: bold;
+        // background: yellow;
+        // test
+        div {
+            font-size: 24px;
+            text-align: center;
+        }
+        // img {}
+    }
+}
+
+.menu {
+    margin: 15px 0;
+    .item {
+        padding: 15px 10px;
+        display: flex;
+        align-items: center;
+        list-style-type: none;
+        color: white;
+
+        i {
+            margin-right: 10px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background: rgba(255, 255, 255, .2);
+        }
+    }
+    .item--active {
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
