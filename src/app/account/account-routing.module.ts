@@ -6,7 +6,7 @@ import { AccountComponent } from './account.component';
 
 const ROUTES: Routes = [
   { path: '', component: AccountComponent, children: [
-    
+    { path: 'boards', loadChildren: './boards/boards.module#BoardsModule' }
   ]}
 ];
 

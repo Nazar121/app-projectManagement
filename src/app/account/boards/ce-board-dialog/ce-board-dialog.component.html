@@ -1,0 +1,50 @@
+<mat-dialog-content>
+    <div class="buttons">
+        <i class="material-icons" style="cursor: pointer;" (click)="closeDialog()">clear</i>
+    </div>
+
+    <section class="add-board">
+        <mat-card>
+            <mat-card-title class="title">{{settings.create ? 'Create New Board' : 'Edit Current Board'}}</mat-card-title>
+            <mat-card-content>
+            <form class="form" [formGroup]="formGroup" (ngSubmit)="save()">
+                <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="full-width" appearance="standard">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" placeholder="Name" required>
+                        <mat-error *ngIf="formGroup.get('name').invalid && formGroup.get('name').touched">Field is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12">
+        
+                    <p>Add photo</p>
+                    <!-- upload and drag&drop file img -->
+                    <div class="file-img">
+                        <!-- message add photo -->
+                        <div class="add-photo" *ngIf="!imagePreview">
+                            <i class="material-icons md-80">add_photo_alternate</i>
+                            <div>Add photo</div>
+                        </div>
+                        <!-- img -->
+                        <img [src]="imagePreview" alt="" *ngIf="imagePreview" class="image">
+                        <!-- input -->
+                        <input type="file" accept="image/*" formControlName="image" placeholder="Image" (change)="fileImg($event)">
+                        <!-- delete file -->
+                        <div class="delete-img" *ngIf="imagePreview" (click)="deleteImg()">
+                            <i class="material-icons">clear</i>
+                        </div>
+                    </div>
+                    <div class="errorImgSize" *ngIf="errorImgSize">Error, maximum image size is 5MB</div>
+        
+                </div>
+                <div class="col-12 justify-content-between">
+                    <button [disabled]="formGroup.invalid" mat-raised-button color="primary">{{ settings.create ? 'Create' : 'Edit'}}</button>
+                </div>
+                </div>
+            </form>
+            </mat-card-content>
+        </mat-card>
+        </section>
+
+</mat-dialog-content>

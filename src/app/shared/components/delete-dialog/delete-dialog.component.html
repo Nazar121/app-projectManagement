@@ -1,0 +1,16 @@
+<mat-dialog-content>
+    <h2 mat-dialog-title class="message">
+       {{settings.message}} <br> <span style="color: red;">Are you sure ?</span>
+    </h2>
+    <div class="icon">
+        <i class="material-icons">warning</i>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <button mat-raised-button color="warn" (click)="closeDialog(true)">Yes</button>
+        </div>
+        <div class="col-6">
+            <button mat-raised-button color="primary" (click)="closeDialog(false)">No</button>
+        </div>
+    </div>
+</mat-dialog-content>
