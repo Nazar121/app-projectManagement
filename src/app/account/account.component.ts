@@ -14,12 +14,18 @@ export class AccountComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.windowResize();
+  }
 
   // window resize
   @HostListener('window:resize', ['$event'])
     onResize(event) {
-    if ( +window.innerWidth < 768 ) {
+      this.windowResize();
+  }
+
+  windowResize() {
+    if ( +window.innerWidth < 992 ) {
       this.matDrawer.mode = 'over';
     } else {
       this.matDrawer.mode = 'side';

@@ -4,12 +4,12 @@
     <div class="flex" (click)="$event.stopPropagation();">
       <div>{{board.created | date : "dd.MM.yyy"}}</div>
       <div class="functions">
-        <i class="material-icons" (click)="editBoard()">edit</i>
+        <i class="material-icons" (click)="CEBoardDialog()">edit</i>
         <i class="material-icons" (click)="deleteBoardDialog()">delete</i>
       </div>
     </div>
     <mat-card-content style="cursor: pointer;">
-      <div class="name">{{board.name}}</div>
+      <div class="title">{{board.name}}</div>
     </mat-card-content>
   </ng-container>
 </mat-card>

@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, FormControl, Validators, FormControlName, FormGroupName } from '@angular/forms';
 
+// interfaces
+// import { Board } from '../interfaces/interfaces';
+
 // for dialog
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -18,9 +21,10 @@ export class CEBoardDialogComponent implements OnInit {
   imagePreview: any = '';
   errorImgSize: boolean = false;
 
+  // @Input board, i have one property createBoard
   constructor(
     public dialogRef: MatDialogRef<CEBoardDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public settings: any
+    @Inject(MAT_DIALOG_DATA) public board
   ) { }
 
   // close dialog
@@ -29,14 +33,27 @@ export class CEBoardDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.settings);
+    // default data for create board
+    if (typeof this.board.createBoard === 'boolean' && this.board.createBoard) {
+      this.board = Object.assign({ ...this.board }, {
+        name: '',
+        bg: {
+          selected: 'color',
+          color: '#ffffff',
+          photo: ''
+        },
+        created: new Date().getTime()
+      });
+      console.log('Mat tvoyou, this.board.createBoard ', typeof this.board.createBoard);
+    }
+    console.log(this.board);
 
     // create: true | false
     this.formGroup = new FormGroup({
-      name: new FormControl(this.settings.value.name, [Validators.required]),
+      name: new FormControl(this.board.name, [Validators.required]),
       image: new FormControl(''),
     });
-    this.imagePreview = this.settings.value.image;
+    this.imagePreview = this.board.bg.photo;
 
   }
 
@@ -77,22 +94,34 @@ export class CEBoardDialogComponent implements OnInit {
     this.imagePreview = '';
   }
 
-  // create | edit category
+  // create || edit board
   save() {
-    const body = {};
-    if ( this.settings.create ) {
-      body['name'] = this.formGroup.value.name;
-      body['created'] = new Date().getTime();
-      this.imagePreview ? body['image'] = this.imagePreview : body['image'] = '';
-      console.log('Create ', body);
+    if ( this.board.createBoard ) {
+      this.board['name'] = this.formGroup.value.name;
+      this.board['created'] = new Date().getTime();
+      if (this.board.bg.selected === 'photo') {
+        this.imagePreview ? this.board.bg['photo'] = this.imagePreview : this.board.bg['photo'] = '';
+      }
     } else {
-      body['name'] = this.formGroup.value.name;
-      body['created'] = this.formGroup.value.created;
-      this.imagePreview ? body['image'] = this.imagePreview : body['image'] = '';
-      console.log('Edit ', body);
+      this.board['name'] = this.formGroup.value.name;
+      this.board['created'] = this.board.created;
+      if (this.board.bg.selected === 'photo') {
+        this.imagePreview ? this.board.bg['photo'] = this.imagePreview : this.board.bg['photo'] = '';
+      }
     }
+    delete this.board.createBoard;
+    console.log('Save Board ', this.board);
     // close dialog and response
-    this.closeDialog(this.settings.create ? 'Create' : 'Edit');
+    this.closeDialog(this.board.createBoard ? 'Create' : 'Edit');
+  }
+
+  // bg color or photo
+  selectedBg(value) {
+    if (value === 'color' || value === 'photo') {
+      this.board.bg.selected = value;
+    } else {
+      this.board.bg.selected = 'color';
+    }
   }
 
 }

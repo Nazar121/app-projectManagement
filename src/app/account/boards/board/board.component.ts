@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 // dialog
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -12,19 +12,14 @@ import { DeleteDialogComponent } from '../../../shared/components/delete-dialog/
 })
 export class BoardComponent implements OnInit {
 
-  board: any;
+  // Input board
+  @Input() board;
 
   constructor(
     public dialog: MatDialog
   ) { }
 
-  ngOnInit() {
-    this.board = {
-      name: 'Angular 6',
-      image: '',
-      created: new Date().getTime()
-    }
-  }
+  ngOnInit() {}
 
   // dialog for delete board
   deleteBoardDialog(): void {
@@ -44,23 +39,15 @@ export class BoardComponent implements OnInit {
   }
 
   // dialog for edit board
-  openDialog(): void {
+  CEBoardDialog(): void {
     let dialogRef = this.dialog.open(CEBoardDialogComponent, {
       maxWidth: '500px',
-      data: {
-        create: false,
-        value: { ...this.board }
-      }
+      data: { ...this.board, createBoard: false }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed.  board is ', result);
     });
-  }
-
-  // edit board
-  editBoard() {
-    this.openDialog();
   }
 
   // delete board

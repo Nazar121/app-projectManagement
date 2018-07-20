@@ -1,11 +1,44 @@
-<p>
-  boards works!
-</p>
+<div class="container-fluid">
+    <div class="row row-eq-height">
 
-<div class="container">
+        <div class="col-6 col-sm-auto">
+            <mat-card class="full-height">
+                <div class="infoBoard">
+                    <div class="flex-y-center">
+                        <i class="material-icons">person_outline</i>
+                        <div class="title">Boards</div>
+                    </div>
+                    <i class="material-icons countBoard" [matBadge]="boards.length" matBadgeColor="warn">dashboard</i>
+                </div>
+            </mat-card>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md order-3 order-md-2">
+            <mat-card class="full-height">
+                <mat-form-field class="full-width">
+                    <mat-label>Search</mat-label>
+                    <input matInput placeholder="Search">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </mat-card>
+        </div>
+
+        <div class="col-6 col-sm col-md-auto order-2 order-md-3">
+            <mat-card class="full-height create-board" (click)="CEBoardDialog()">
+                <mat-card-title>
+                    <i class="material-icons">add_circle</i>
+                    <div class="title">Create New Board</div>
+                </mat-card-title>
+            </mat-card>
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid">
   <div class="row">
-    <div class="col-md-4">
-      <app-board></app-board>
+    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let board of boards">
+      <app-board [board]="board"></app-board>
     </div>
   </div>
 </div>

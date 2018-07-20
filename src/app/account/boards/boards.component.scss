@@ -1,0 +1,60 @@
+@import '../../scss/utils/mixins';
+@import '../../scss/utils/variables';
+
+.row>div {
+    margin-top: 15px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+// Info
+.infoBoard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    .countBoard {
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+    }
+}
+
+// Create New Board
+.create-board {
+    cursor: pointer;
+    text-align: center;
+    
+    i {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 70px;
+        @include transition(.3s);
+    }
+
+    &:hover i {
+        transform: scale(1.2);
+    }
+}
+
+.flex-y-center {
+    display: flex;
+    align-content: flex-end;
+}
+
+@media (max-width: 575.98px) {
+    .create-board {
+        i {
+            font-size: 44px;
+        }
+    }
+}
