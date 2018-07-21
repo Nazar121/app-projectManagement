@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, FormControl, Validators, FormControlName, FormGroupName } from '@angular/forms';
 
+// services
+import { AuthService } from '../../shared/services/auth.service';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -14,7 +17,9 @@ export class RegistrationComponent implements OnInit {
   // for show || hide password
   hidePassword: boolean;
 
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.hidePassword = true;
@@ -35,6 +40,8 @@ export class RegistrationComponent implements OnInit {
     user.name = this.firstLetterUp(user.name);
     user.surname = this.firstLetterUp(user.surname);
     console.log('USER ', user);
+    
+    this.authService.registration(user);
   }
 
   // First latter to UP

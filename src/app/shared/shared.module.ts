@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 // modules
 import { MaterialModule } from "./material/material.module";
 
+// services
+import { AuthService } from './services/auth.service';
+
 // components
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
@@ -18,6 +21,9 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
   ],
   entryComponents: [
     DeleteDialogComponent
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class SharedModule { }

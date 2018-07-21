@@ -41,9 +41,11 @@ export class BoardsComponent implements OnInit {
     }
   ];
 
+  users:any;
+
   constructor(
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
   }
