@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 // modules
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { environment } from '../environments/environment';
     BrowserModule,
     BrowserAnimationsModule,
     AuthModule,
+    SharedModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,

@@ -28,10 +28,16 @@ export class AuthService {
   // LOGIN userId to LocalStorage or SessionStorage
   login(user) {
     if (user.remember === true) {
-      localStorage.setItem('userId', JSON.stringify(user.remember));
+      localStorage.setItem('userId', JSON.stringify(user.id));
     } else {
-      sessionStorage.setItem('userId', JSON.stringify(user.remember));
+      sessionStorage.setItem('userId', JSON.stringify(user.id));
     }
+  }
+
+  // LOGOUT userId with LocalStorage or SessionStorage
+  logout() {
+    localStorage.removeItem('userId');
+    sessionStorage.removeItem('userId');
   }
 
   // GET userId with LocalStorage or SessionStorage
@@ -41,13 +47,8 @@ export class AuthService {
     if (!userId) {
       userId = JSON.parse(sessionStorage.getItem('userId'));
     }
-    return userId;
-  }
 
-  // LOGOUT userId with LocalStorage or SessionStorage
-  logout(user) {
-    localStorage.removeItem('userId');
-    sessionStorage.removeItem('userId');
+    return Observable.of(userId);
   }
 
 }
