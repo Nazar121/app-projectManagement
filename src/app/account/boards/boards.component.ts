@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+// services
+import { BoardsService } from '../../shared/services/boards.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 // dialog
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
@@ -11,43 +16,40 @@ import { CEBoardDialogComponent } from './ce-board-dialog/ce-board-dialog.compon
 })
 export class BoardsComponent implements OnInit {
 
-  boards: any = [
-    {
-      name: 'Angular 6',
-      bg: {
-        selected: 'color',
-        color: '#ffffff',
-        photo: ''
-      },
-      created: new Date().getTime()
-    },
-    {
-      name: 'JavaScript',
-      bg: {
-        selected: 'color',
-        color: '#ffffff',
-        photo: ''
-      },
-      created: new Date().getTime()
-    },
-    {
-      name: 'Node.js',
-      bg: {
-        selected: 'color',
-        color: '#ffffff',
-        photo: ''
-      },
-      created: new Date().getTime()
-    }
-  ];
-
-  users:any;
+  // boards: any;
+  boards: any;
+  boardsFilter: any;
 
   constructor(
+    public authService: AuthService,
+    public boardsService: BoardsService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit() {
+    // GET boards for user
+    this.getUserBoards();
+  }
+
+  // GET boards for user
+  getUserBoards() {
+    this.boardsService.getUserBoards().subscribe(res => {
+      this.authService.getUserId().subscribe(id => {
+        const userId = id;
+        this.boards = [];
+        for (let key in res) {
+          if (userId === res[key].createdId) {
+            this.boards.push({
+              createdId: userId,
+              boardId: key,
+              ...res[key]
+            }); 
+          }     
+        }
+        this.boardsFilter = this.boards;
+        console.log('boards ', this.boards);
+      });
+    });
   }
 
   // dialog for edit board
@@ -62,6 +64,15 @@ export class BoardsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed.  board is ', result);
     });
+  }
+
+  // Search boards
+  search(event) {
+    let value = event.target.value;
+    this.boardsFilter = this.boards.filter(obj => {
+      return obj.name.toLowerCase().includes(value.toLowerCase());
+    });
+    console.log(this.boards);
   }
 
 }

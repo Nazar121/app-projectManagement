@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+// services
+import { BoardsService } from '../../../shared/services/boards.service';
+
 // dialog
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { CEBoardDialogComponent } from '../ce-board-dialog/ce-board-dialog.component';
@@ -16,6 +19,7 @@ export class BoardComponent implements OnInit {
   @Input() board;
 
   constructor(
+    public boardsService: BoardsService,
     public dialog: MatDialog
   ) { }
 
@@ -52,7 +56,7 @@ export class BoardComponent implements OnInit {
 
   // delete board
   deleteBoard() {
-    console.log('DELETE board ');
+    this.boardsService.deleteBoard(this.board.boardId);
   }
 
 }

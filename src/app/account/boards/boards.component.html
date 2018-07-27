@@ -8,7 +8,7 @@
                         <i class="material-icons">person_outline</i>
                         <div class="title">Boards</div>
                     </div>
-                    <i class="material-icons countBoard" [matBadge]="boards.length" matBadgeColor="warn">dashboard</i>
+                    <i class="material-icons countBoard" [matBadge]="(boardsFilter) ? boardsFilter.length : 0" matBadgeColor="warn">dashboard</i>
                 </div>
             </mat-card>
         </div>
@@ -17,7 +17,7 @@
             <mat-card class="full-height">
                 <mat-form-field class="full-width">
                     <mat-label>Search</mat-label>
-                    <input matInput placeholder="Search">
+                    <input matInput placeholder="Search" (input)="search($event)">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
             </mat-card>
@@ -37,7 +37,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let board of boards">
+    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let board of boardsFilter">
       <app-board [board]="board"></app-board>
     </div>
   </div>

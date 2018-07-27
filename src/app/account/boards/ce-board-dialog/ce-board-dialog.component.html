@@ -11,8 +11,8 @@
                         
                     <label class="example-margin">Background:</label>
                     <mat-radio-group>
-                        <mat-radio-button color="primary" value="color" (click)="selectedBg('color')" style="margin: 0 5px;" checked>Color</mat-radio-button>
-                        <mat-radio-button color="primary" value="photo" (click)="selectedBg('photo')" style="margin: 0 5px;">Photo</mat-radio-button>
+                        <mat-radio-button color="primary" value="color" (click)="selectedBg('color')" style="margin: 0 5px;" [checked]="board.bg.selected === 'color'">Color</mat-radio-button>
+                        <mat-radio-button color="primary" value="photo" (click)="selectedBg('photo')" style="margin: 0 5px;" [checked]="board.bg.selected !== 'color'">Photo</mat-radio-button>
                     </mat-radio-group>
 
                     <ng-container [ngSwitch]="board.bg.selected">

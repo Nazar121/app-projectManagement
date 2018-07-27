@@ -25,6 +25,15 @@ export class AuthService {
     return this.db.object('/users').valueChanges();
   }
 
+  // GET user data
+  getUserData() {
+    let userId;
+    this.getUserId().subscribe(res => {
+      userId = res;
+    });
+    return this.db.object(`/users/${userId}`).valueChanges();
+  }
+
   // LOGIN userId to LocalStorage or SessionStorage
   login(user) {
     if (user.remember === true) {

@@ -1,6 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, FormControl, Validators, FormControlName, FormGroupName } from '@angular/forms';
 
+// services
+import { AuthService } from '../../../shared/services/auth.service';
+import { BoardsService } from '../../../shared/services/boards.service';
+
 // interfaces
 // import { Board } from '../interfaces/interfaces';
 
@@ -14,6 +18,9 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class CEBoardDialogComponent implements OnInit {
 
+  // UserId
+  userId: string
+
   // form
   formGroup: FormGroup;
 
@@ -23,6 +30,8 @@ export class CEBoardDialogComponent implements OnInit {
 
   // @Input board, i have one property createBoard
   constructor(
+    public authService: AuthService,
+    public boardsService: BoardsService,
     public dialogRef: MatDialogRef<CEBoardDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public board
   ) { }
@@ -33,6 +42,11 @@ export class CEBoardDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    // UserId
+    this.authService.getUserId().subscribe(res => {
+      this.userId = res; 
+    });
+
     // default data for create board
     if (typeof this.board.createBoard === 'boolean' && this.board.createBoard) {
       this.board = Object.assign({ ...this.board }, {
@@ -98,18 +112,25 @@ export class CEBoardDialogComponent implements OnInit {
   save() {
     if ( this.board.createBoard ) {
       this.board['name'] = this.formGroup.value.name;
+      this.board['createdId'] = this.userId;
       this.board['created'] = new Date().getTime();
       if (this.board.bg.selected === 'photo') {
         this.imagePreview ? this.board.bg['photo'] = this.imagePreview : this.board.bg['photo'] = '';
       }
+      // CREATE
+      delete this.board.createBoard;
+      this.boardsService.createBoard(this.board);
     } else {
       this.board['name'] = this.formGroup.value.name;
       this.board['created'] = this.board.created;
       if (this.board.bg.selected === 'photo') {
         this.imagePreview ? this.board.bg['photo'] = this.imagePreview : this.board.bg['photo'] = '';
       }
+      // EDIT
+      delete this.board.createBoard;
+      this.boardsService.editBoard(this.board);
     }
-    delete this.board.createBoard;
+
     console.log('Save Board ', this.board);
     // close dialog and response
     this.closeDialog(this.board.createBoard ? 'Create' : 'Edit');

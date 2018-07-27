@@ -11,7 +11,7 @@
         </nav>
 
         <nav class="user">
-            <div class="name">Name</div>
+            <div class="name" *ngIf="user">{{user.name}}</div>
             <img src="" alt="" class="img">
             <i class="material-icons md-36" mat-button [matMenuTriggerFor]="menu">apps</i>
             <mat-menu #menu="matMenu">
