@@ -1,10 +1,10 @@
-<mat-card>
+<mat-card (click)="currentBoard()">
   <ng-container (click)="currentBoard()">
-    <div mat-card-image *ngIf="board.bg.selected !== 'color'" class="image" [ngStyle]="{
-      'background-image':  'url(' + (board.bg.photo ? board.bg.photo : '../assets/images/boards/default_bg_board.jpg') + ')',
+    <div mat-card-image *ngIf="board.bgPreview.selected !== 'color'" class="image" [ngStyle]="{
+      'background-image':  'url(' + (board.bgPreview.photo ? board.bgPreview.photo : '../assets/images/boards/default_bg_board.jpg') + ')',
       'background-size': 'cover',
       'background-position': 'center'}"></div>
-    <div mat-card-image *ngIf="board.bg.selected === 'color'" class="image" [ngStyle]="{'background': board.bg.color}"></div>
+    <div mat-card-image *ngIf="board.bgPreview.selected === 'color'" class="image" [ngStyle]="{'background': board.bgPreview.color}"></div>
     <div class="flex" (click)="$event.stopPropagation();">
       <div>{{board.created | date : "dd.MM.yyy"}}</div>
       <div class="functions">

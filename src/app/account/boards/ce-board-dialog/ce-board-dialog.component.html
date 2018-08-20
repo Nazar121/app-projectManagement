@@ -11,11 +11,11 @@
                         
                     <label class="example-margin">Background:</label>
                     <mat-radio-group>
-                        <mat-radio-button color="primary" value="color" (click)="selectedBg('color')" style="margin: 0 5px;" [checked]="board.bg.selected === 'color'">Color</mat-radio-button>
-                        <mat-radio-button color="primary" value="photo" (click)="selectedBg('photo')" style="margin: 0 5px;" [checked]="board.bg.selected !== 'color'">Photo</mat-radio-button>
+                        <mat-radio-button color="primary" value="color" (click)="selectedBg('color')" style="margin: 0 5px;" [checked]="board.bgPreview.selected === 'color'">Color</mat-radio-button>
+                        <mat-radio-button color="primary" value="photo" (click)="selectedBg('photo')" style="margin: 0 5px;" [checked]="board.bgPreview.selected !== 'color'">Photo</mat-radio-button>
                     </mat-radio-group>
 
-                    <ng-container [ngSwitch]="board.bg.selected">
+                    <ng-container [ngSwitch]="board.bgPreview.selected">
                         <!-- upload and drag&drop file img -->
                         <div mat-card-image *ngSwitchCase="'photo'">
                             <div class="bg file-img">
@@ -37,8 +37,8 @@
                         </div>
 
                         <!-- bg color -->
-                        <div class="bg color" mat-card-image *ngSwitchCase="'color'" [style.background]="board.bg.color">
-                            <input type="color" [value]="board.bg.color" (change)="board.bg.color = $event.target.value;">
+                        <div class="bg color" mat-card-image *ngSwitchCase="'color'" [style.background]="board.bgPreview.color">
+                            <input type="color" [value]="board.bgPreview.color" (change)="board.bgPreview.color = $event.target.value;">
                             <div class="colorPicker">
                                 <img src="./assets/images/account/color_picker.gif" width="80" alt="">
                             </div>

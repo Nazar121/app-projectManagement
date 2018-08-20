@@ -1,0 +1,17 @@
+<div class="board" *ngIf="board" [ngStyle]="{
+  'background': (board.bgBoard.selected === 'color') ? board.bgBoard.color :( 'url(' + (board.bgBoard.photo ? board.bgBoard.photo : '../assets/images/boards/default_bg_board.jpg') + ')' ),
+  'background-size': 'cover',
+  'background-position': 'center'}">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <mat-card class="full-height create-sprint" (click)="CESprintDialog()">
+          <i class="material-icons">add_circle</i>
+          <div class="title">Create sprint</div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+</div>

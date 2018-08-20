@@ -40,4 +40,9 @@ export class BoardsService {
     return this.db.object('/boards').valueChanges();
   }
 
+  // GET current board for user
+  getCurrentBoard(boardId) {
+    return this.db.object(`/boards/${boardId}`).valueChanges();
+  }
+
 }

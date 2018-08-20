@@ -3,10 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 // components
 import { BoardsComponent } from './boards.component';
+import { CurrentBoardComponent } from './current-board/current-board.component';
 
 const ROUTES: Routes = [
-  { path: '', component: BoardsComponent, children: [
-    
+  { path: '', children: [
+    { path: '', component: BoardsComponent },
+    { path: ':boardId', component: CurrentBoardComponent }
   ]}
 ];
 

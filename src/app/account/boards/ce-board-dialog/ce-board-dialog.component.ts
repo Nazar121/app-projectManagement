@@ -19,7 +19,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class CEBoardDialogComponent implements OnInit {
 
   // UserId
-  userId: string
+  userId: string;
 
   // form
   formGroup: FormGroup;
@@ -51,13 +51,19 @@ export class CEBoardDialogComponent implements OnInit {
     if (typeof this.board.createBoard === 'boolean' && this.board.createBoard) {
       this.board = Object.assign({ ...this.board }, {
         name: '',
-        bg: {
+        bgPreview: {
           selected: 'color',
           color: '#ffffff',
           photo: ''
         },
+        bgBoard: {
+          selected: 'color',
+          color: '#008040',
+          photo: ''
+        },
         created: new Date().getTime()
       });
+      // f9f6f4
       console.log('Mat tvoyou, this.board.createBoard ', typeof this.board.createBoard);
     }
     console.log(this.board);
@@ -67,7 +73,7 @@ export class CEBoardDialogComponent implements OnInit {
       name: new FormControl(this.board.name, [Validators.required]),
       image: new FormControl(''),
     });
-    this.imagePreview = this.board.bg.photo;
+    this.imagePreview = this.board.bgPreview.photo;
 
   }
 
@@ -114,8 +120,8 @@ export class CEBoardDialogComponent implements OnInit {
       this.board['name'] = this.formGroup.value.name;
       this.board['createdId'] = this.userId;
       this.board['created'] = new Date().getTime();
-      if (this.board.bg.selected === 'photo') {
-        this.imagePreview ? this.board.bg['photo'] = this.imagePreview : this.board.bg['photo'] = '';
+      if (this.board.bgPreview.selected === 'photo') {
+        this.imagePreview ? this.board.bgPreview['photo'] = this.imagePreview : this.board.bgPreview['photo'] = '';
       }
       // CREATE
       delete this.board.createBoard;
@@ -123,8 +129,8 @@ export class CEBoardDialogComponent implements OnInit {
     } else {
       this.board['name'] = this.formGroup.value.name;
       this.board['created'] = this.board.created;
-      if (this.board.bg.selected === 'photo') {
-        this.imagePreview ? this.board.bg['photo'] = this.imagePreview : this.board.bg['photo'] = '';
+      if (this.board.bgPreview.selected === 'photo') {
+        this.imagePreview ? this.board.bgPreview['photo'] = this.imagePreview : this.board.bgPreview['photo'] = '';
       }
       // EDIT
       delete this.board.createBoard;
@@ -139,9 +145,9 @@ export class CEBoardDialogComponent implements OnInit {
   // bg color or photo
   selectedBg(value) {
     if (value === 'color' || value === 'photo') {
-      this.board.bg.selected = value;
+      this.board.bgPreview.selected = value;
     } else {
-      this.board.bg.selected = 'color';
+      this.board.bgPreview.selected = 'color';
     }
   }
 

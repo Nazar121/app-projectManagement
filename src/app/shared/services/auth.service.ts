@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 // firebase
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -12,6 +13,7 @@ import 'rxjs/add/operator/map';
 export class AuthService {
 
   constructor(
+    public router: Router,
     public db: AngularFireDatabase
   ) { }
 
@@ -47,6 +49,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('userId');
     sessionStorage.removeItem('userId');
+    this.router.navigate(['/login']);
   }
 
   // GET userId with LocalStorage or SessionStorage

@@ -1,0 +1,23 @@
+<mat-dialog-content>
+    <div class="buttons">
+        <i class="material-icons" style="cursor: pointer;" (click)="closeDialog()">clear</i>
+    </div>
+
+    <section class="ce-board">
+        <!-- <div class="title">{{board.createBoard === true ? 'Create New Board' : 'Edit Current Board'}}</div> -->
+        <form class="form" [formGroup]="formGroup" (ngSubmit)="save()">
+            <mat-card>
+                <mat-card-content>   
+                    <div >
+                        <mat-form-field class="full-width" appearance="standard">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Name" required>
+                            <mat-error *ngIf="formGroup.get('name').invalid && formGroup.get('name').touched">Field is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <!-- <button [disabled]="formGroup.invalid" mat-raised-button color="primary">{{ board.createBoard === true ? 'Create' : 'Edit'}}</button> -->
+        </form>
+    </section>
+</mat-dialog-content>

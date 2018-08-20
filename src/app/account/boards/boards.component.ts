@@ -67,12 +67,12 @@ export class BoardsComponent implements OnInit {
   }
 
   // Search boards
-  search(event) {
-    let value = event.target.value;
+  search(search) {
+    let value = search;
     this.boardsFilter = this.boards.filter(obj => {
       return obj.name.toLowerCase().includes(value.toLowerCase());
     });
-    console.log(this.boards);
+    console.log('boardsFilter ', this.boardsFilter);
   }
 
 }

@@ -17,7 +17,7 @@
             <mat-card class="full-height">
                 <mat-form-field class="full-width">
                     <mat-label>Search</mat-label>
-                    <input matInput placeholder="Search" (input)="search($event)">
+                    <input matInput placeholder="Search" (input)="search($event.target.value)">
                     <mat-icon matSuffix>search</mat-icon>
                 </mat-form-field>
             </mat-card>

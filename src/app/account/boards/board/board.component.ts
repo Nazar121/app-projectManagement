@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 // services
 import { BoardsService } from '../../../shared/services/boards.service';
@@ -19,6 +20,7 @@ export class BoardComponent implements OnInit {
   @Input() board;
 
   constructor(
+    public router: Router,
     public boardsService: BoardsService,
     public dialog: MatDialog
   ) { }
@@ -57,6 +59,11 @@ export class BoardComponent implements OnInit {
   // delete board
   deleteBoard() {
     this.boardsService.deleteBoard(this.board.boardId);
+  }
+
+  // Current board
+  currentBoard() {
+    this.router.navigate([`${this.router.url}/${this.board.boardId}`]);
   }
 
 }
