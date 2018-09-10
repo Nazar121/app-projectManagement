@@ -14,6 +14,7 @@ import { CEBoardDialogComponent } from './ce-board-dialog/ce-board-dialog.compon
 import { CESprintDialogComponent } from './current-board/ce-sprint-dialog/ce-sprint-dialog.component';
 import { CurrentBoardComponent } from './current-board/current-board.component';
 import { InfoComponent } from './current-board/info/info.component';
+import { SprintComponent } from './current-board/sprint/sprint.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { InfoComponent } from './current-board/info/info.component';
     CEBoardDialogComponent,
     CESprintDialogComponent,
     CurrentBoardComponent,
-    InfoComponent
+    InfoComponent,
+    SprintComponent
   ],
   entryComponents: [
     CEBoardDialogComponent,

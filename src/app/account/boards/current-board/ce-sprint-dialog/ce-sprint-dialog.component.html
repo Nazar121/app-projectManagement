@@ -4,9 +4,9 @@
     </div>
 
     <section class="ce-board">
-        <!-- <div class="title">{{board.createBoard === true ? 'Create New Board' : 'Edit Current Board'}}</div> -->
         <form class="form" [formGroup]="formGroup" (ngSubmit)="save()">
             <mat-card>
+                <div class="title">{{sprint.sprint}}</div>
                 <mat-card-content>   
                     <div >
                         <mat-form-field class="full-width" appearance="standard">
@@ -17,7 +17,7 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-            <!-- <button [disabled]="formGroup.invalid" mat-raised-button color="primary">{{ board.createBoard === true ? 'Create' : 'Edit'}}</button> -->
+            <button [disabled]="formGroup.invalid" mat-raised-button color="primary">Save</button>
         </form>
     </section>
 </mat-dialog-content>

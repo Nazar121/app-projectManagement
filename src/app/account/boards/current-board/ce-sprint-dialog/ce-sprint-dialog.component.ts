@@ -18,6 +18,9 @@ export class CESprintDialogComponent implements OnInit {
   // UserId
   userId: string;
 
+  // sprint
+  sprint: any = {};
+
   // form
   formGroup: FormGroup;
 
@@ -26,7 +29,7 @@ export class CESprintDialogComponent implements OnInit {
     public authService: AuthService,
     public boardsService: BoardsService,
     public dialogRef: MatDialogRef<CESprintDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public board
+    @Inject(MAT_DIALOG_DATA) public settings
   ) { }
 
   // close dialog
@@ -37,47 +40,43 @@ export class CESprintDialogComponent implements OnInit {
   ngOnInit() {
     // UserId
     this.authService.getUserId().subscribe(res => {
-      this.userId = res; 
+      this.userId = res;
     });
 
-    // default data for create board
-    if (typeof this.board.createBoard === 'boolean' && this.board.createBoard) {
-      this.board = Object.assign({ ...this.board }, {
-        name: '',
-        created: new Date().getTime()
-      });
-      console.log('Mat tvoyou, this.board.createBoard ', typeof this.board.createBoard);
-    }
-    console.log(this.board);
+    // default data for sprint
+    console.log('settings ', this.settings);
+    this.sprint['sprint'] = this.settings.sprint;
+    this.sprint['createSprint'] = this.settings.createSprint;
 
     // create: true | false
     this.formGroup = new FormGroup({
-      name: new FormControl(this.board.name, [Validators.required]),
-      image: new FormControl(''),
+      name: new FormControl(this.sprint.sprint, [Validators.required])
     });
 
   }
 
   // create || edit sprint
   save() {
-    if ( this.board.createBoard ) {
-      this.board['name'] = this.formGroup.value.name;
-      this.board['createdId'] = this.userId;
-      this.board['created'] = new Date().getTime();
-      // CREATE
-      delete this.board.createBoard;
-      this.boardsService.createBoard(this.board);
+    let name = this.formGroup.value.name;
+    let nameArr = name.split('');
+    let firstL = nameArr[0].toUpperCase();
+    nameArr[0] = firstL;
+    name = nameArr.join('');
+
+    if ( this.sprint.createSprint ) {
+      this.sprint['name'] = name;
+      this.sprint['createdId'] = this.userId;
+      this.sprint['created'] = new Date().getTime();
     } else {
-      this.board['name'] = this.formGroup.value.name;
-      this.board['created'] = this.board.created;
-      // EDIT
-      delete this.board.createBoard;
-      this.boardsService.editBoard(this.board);
+      this.sprint['name'] = name;
+      this.sprint['updatedId'] = this.userId;
+      this.sprint['updated'] = new Date().getTime();
     }
 
-    console.log('Save Board ', this.board);
+    console.log('Save Sprint ', this.sprint);
+
     // close dialog and response
-    this.closeDialog(this.board.createBoard ? 'Create' : 'Edit');
+    this.closeDialog(this.sprint);
   }
 
 }

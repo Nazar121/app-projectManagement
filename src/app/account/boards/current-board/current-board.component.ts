@@ -30,7 +30,6 @@ export class CurrentBoardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
     // Get url params
     this.route.params.subscribe(params => {
       console.log('params = ', params);
@@ -53,21 +52,44 @@ export class CurrentBoardComponent implements OnInit {
     this.boardsService.getCurrentBoard(this.boardId).subscribe(res => {
       this.board = res;
       this.board['boardId'] = this.boardId;
-      console.log('currentBoard ', this.board);
-      if ( this.board && this.userId === this.board.createdId) {}
-      else {this.authService.logout();}
+      if ( this.board && this.userId === this.board.createdId) {
+        if ( this.board.sprints ) {
+          const sprints = [];
+          // tslint:disable-next-line:forin
+          for (const key in this.board.sprints) {
+            this.board.sprints[key]['sprintId'] = key;
+            sprints.push(this.board.sprints[key]);
+          }
+          this.board.sprints = sprints;
+        } else {
+          this.board['sprints'] = [];
+        }
+        console.log('currentBoard ', this.board);
+      }
+      else { this.authService.logout(); }
     });
   }
 
   // dialog for edit board
   CESprintDialog(): void {
-    let dialogRef = this.dialog.open(CESprintDialogComponent, {
+    const dialogRef = this.dialog.open(CESprintDialogComponent, {
       maxWidth: '500px',
-      data: {}
+      data: {
+        createSprint: true,
+        sprint: `Sptint ${this.board.sprints.length + 1 }`
+      }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The sprint was closed.  board is ', result);
+    dialogRef.afterClosed().subscribe(sprint => {
+      console.log('The sprint was closed.  board is ', sprint);
+      if ( sprint && sprint.createSprint ) {
+        delete sprint['createSprint'];
+        this.boardsService.createSprint(this.board.boardId, sprint);
+      } else {
+        console.log('False');
+        // delete sprint['createSprint'];
+        // this.boardsService.editSprint(this.board.boardId, sprint);
+      }
     });
   }
 

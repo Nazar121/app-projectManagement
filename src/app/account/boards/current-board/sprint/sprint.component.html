@@ -1,0 +1,19 @@
+<!-- <mat-card (click)="currentBoard()">-->
+<mat-card class="full-height">
+    <!-- <ng-container (click)="currentBoard()"> -->
+        <ng-container>
+      <mat-card-content style="cursor: pointer;">
+        <div class="title">{{sprint.name}}</div>
+      </mat-card-content>
+      <!-- <div class="flex" (click)="$event.stopPropagation();"> -->
+        <div class="flex">
+        <div>{{sprint.created | date : "dd.MM.yyy"}}</div>
+        <div class="functions">
+          <!-- <i class="material-icons" (click)="CEBoardDialog()">edit</i>
+          <i class="material-icons" (click)="deleteBoardDialog()">delete</i> -->
+          <i class="material-icons">edit</i>
+          <i class="material-icons">delete</i>
+        </div>
+      </div>
+    </ng-container>
+  </mat-card>

@@ -24,14 +24,14 @@ export class BoardsService {
     this.db.list('/boards').push(board);
   }
 
-  // EDIT board
+  // UPDATE board
   editBoard(board) {
     this.db.object(`/boards/${board.boardId}`).update(board);
   }
 
   // DELETE board
   deleteBoard(boardId) {
-    console.log(boardId);
+    // console.log(boardId);
     this.db.object(`/boards/${boardId}`).remove();
   }
 
@@ -43,6 +43,16 @@ export class BoardsService {
   // GET current board for user
   getCurrentBoard(boardId) {
     return this.db.object(`/boards/${boardId}`).valueChanges();
+  }
+
+  // CREATE new sprint
+  createSprint(boardId, sprint) {
+    this.db.list(`/boards/${boardId}/sprints`).push(sprint);
+  }
+
+  // UPDATE sprint
+  editSprint(boardId, sprint) {
+    this.db.object(`/boards/${boardId}/${sprint.sprintId}`).update(sprint);
   }
 
 }
