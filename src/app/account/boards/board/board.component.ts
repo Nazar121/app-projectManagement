@@ -46,7 +46,7 @@ export class BoardComponent implements OnInit {
 
   // dialog for edit board
   CEBoardDialog(): void {
-    let dialogRef = this.dialog.open(CEBoardDialogComponent, {
+    const dialogRef = this.dialog.open(CEBoardDialogComponent, {
       maxWidth: '500px',
       data: { ...this.board, createBoard: false }
     });

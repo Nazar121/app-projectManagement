@@ -31,7 +31,6 @@ export class BoardsService {
 
   // DELETE board
   deleteBoard(boardId) {
-    // console.log(boardId);
     this.db.object(`/boards/${boardId}`).remove();
   }
 
@@ -52,7 +51,12 @@ export class BoardsService {
 
   // UPDATE sprint
   editSprint(boardId, sprint) {
-    this.db.object(`/boards/${boardId}/${sprint.sprintId}`).update(sprint);
+    this.db.object(`/boards/${boardId}/sprints/${sprint.sprintId}`).update(sprint);
+  }
+
+  // DELETE sprint
+  deleteSprint(boardId, sprintId) {
+    this.db.object(`/boards/${boardId}/sprints/${sprintId}`).remove();
   }
 
 }

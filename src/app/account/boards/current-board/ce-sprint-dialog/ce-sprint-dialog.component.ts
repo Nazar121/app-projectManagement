@@ -44,13 +44,12 @@ export class CESprintDialogComponent implements OnInit {
     });
 
     // default data for sprint
-    console.log('settings ', this.settings);
-    this.sprint['sprint'] = this.settings.sprint;
-    this.sprint['createSprint'] = this.settings.createSprint;
+    // console.log('settings ', this.settings);
+    this.sprint = { ...this.settings };
 
     // create: true | false
     this.formGroup = new FormGroup({
-      name: new FormControl(this.sprint.sprint, [Validators.required])
+      name: new FormControl((this.sprint.createSprint === true ? this.sprint.sprint :  this.sprint.name), [Validators.required])
     });
 
   }
@@ -73,7 +72,7 @@ export class CESprintDialogComponent implements OnInit {
       this.sprint['updated'] = new Date().getTime();
     }
 
-    console.log('Save Sprint ', this.sprint);
+    // console.log('Save Sprint ', this.sprint);
 
     // close dialog and response
     this.closeDialog(this.sprint);

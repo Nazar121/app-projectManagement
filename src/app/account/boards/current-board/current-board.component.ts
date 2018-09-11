@@ -32,13 +32,12 @@ export class CurrentBoardComponent implements OnInit {
   ngOnInit() {
     // Get url params
     this.route.params.subscribe(params => {
-      console.log('params = ', params);
+      // console.log('params = ', params);
       this.boardId = params.boardId;
 
       // GET userId
       this.authService.getUserId().subscribe(res => {
         this.userId = res;
-        console.log('userId ', this.userId);
 
         this.getCurrentBoard();
       });
@@ -64,7 +63,7 @@ export class CurrentBoardComponent implements OnInit {
         } else {
           this.board['sprints'] = [];
         }
-        console.log('currentBoard ', this.board);
+        // console.log('currentBoard ', this.board);
       }
       else { this.authService.logout(); }
     });
@@ -81,14 +80,10 @@ export class CurrentBoardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(sprint => {
-      console.log('The sprint was closed.  board is ', sprint);
+      // console.log('userId ', this.userId);
       if ( sprint && sprint.createSprint ) {
         delete sprint['createSprint'];
         this.boardsService.createSprint(this.board.boardId, sprint);
-      } else {
-        console.log('False');
-        // delete sprint['createSprint'];
-        // this.boardsService.editSprint(this.board.boardId, sprint);
       }
     });
   }
